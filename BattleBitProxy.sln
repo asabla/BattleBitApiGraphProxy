@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{62A3C780-1664-4A0E-8DFD-003A7DBC458A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{22CBD42B-E36C-4EBE-9917-E5E2945BD52E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleBitGraphQLApi", "src\Backend\BattleBitGraphQLApi\BattleBitGraphQLApi.csproj", "{63D01D4A-4AD1-4C14-8AB6-6E16A23D4015}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +16,15 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63D01D4A-4AD1-4C14-8AB6-6E16A23D4015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63D01D4A-4AD1-4C14-8AB6-6E16A23D4015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63D01D4A-4AD1-4C14-8AB6-6E16A23D4015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63D01D4A-4AD1-4C14-8AB6-6E16A23D4015}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{22CBD42B-E36C-4EBE-9917-E5E2945BD52E} = {62A3C780-1664-4A0E-8DFD-003A7DBC458A}
+		{63D01D4A-4AD1-4C14-8AB6-6E16A23D4015} = {22CBD42B-E36C-4EBE-9917-E5E2945BD52E}
 	EndGlobalSection
 EndGlobal
