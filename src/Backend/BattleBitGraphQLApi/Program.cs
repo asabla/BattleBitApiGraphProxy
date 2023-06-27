@@ -16,4 +16,4 @@ app.MapGraphQL();
 // Can be used for health check (just return 200 OK)
 app.MapGet("/", () => StatusCodes.Status200OK);
 
-app.Run();
+await app.RunWithGraphQLCommandsAsync(args);
