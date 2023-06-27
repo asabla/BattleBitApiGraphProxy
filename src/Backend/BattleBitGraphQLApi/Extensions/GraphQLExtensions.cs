@@ -1,3 +1,5 @@
+using BattleBitProxy.Backend.BattleBitGraphQLApi.Services;
+
 using HotChocolate.Types.Pagination;
 
 namespace BattleBitProxy.Backend.BattleBitGraphQLApi.Extensions;
@@ -17,13 +19,16 @@ internal static class GraphQLExtensions
                 })
                 .SetPagingOptions(new PagingOptions
                 {
-                    MaxPageSize = 100,
+                    MaxPageSize = 10_000,
                     IncludeTotalCount = true
                 })
             .AddTypes()
             .AddFiltering()
             .AddProjections()
-            .AddSorting();
+            .AddSorting()
+            .RegisterService<BattleBitAPIService>(ServiceKind.Resolver);
+
+        builder.Services.AddScoped<BattleBitAPIService>();
 
         return builder;
     }
