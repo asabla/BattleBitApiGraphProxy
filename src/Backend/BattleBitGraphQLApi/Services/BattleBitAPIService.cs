@@ -1,6 +1,7 @@
 using System.Text.Json;
 
 using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.BattleBit;
+using BattleBitProxy.Backend.BattleBitGraphQLApi.Types;
 
 namespace BattleBitProxy.Backend.BattleBitGraphQLApi.Services;
 
@@ -8,8 +9,6 @@ public class BattleBitAPIService
 {
     private readonly ILogger<BattleBitAPIService> _logger;
     private readonly IHttpClientFactory _httpClientFactory;
-
-    private const string HttpClientName = "BattleBitAPI";
 
     public BattleBitAPIService(
         ILogger<BattleBitAPIService> logger,
@@ -24,7 +23,7 @@ public class BattleBitAPIService
     {
         _logger.LogInformation("Fetching server BattleBit servers");
 
-        var httpClient = _httpClientFactory.CreateClient(HttpClientName);
+        var httpClient = _httpClientFactory.CreateClient(HttpClientName.BattleBitAPI);
 
         var requestResponse = await httpClient.GetAsync(
             requestUri: "Servers/GetServerList",

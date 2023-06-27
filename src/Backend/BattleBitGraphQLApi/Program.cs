@@ -2,12 +2,9 @@ using BattleBitProxy.Backend.BattleBitGraphQLApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpClient("BattleBitAPI", opt
-    => opt.BaseAddress = new Uri("https://publicapi.battlebit.cloud"));
-
-// Load configuration and setup application
 builder
     .ConfigurationSetup()
+    .ConfigureServices()
     .ConfigureGraphQLServer();
 
 var app = builder.Build();
