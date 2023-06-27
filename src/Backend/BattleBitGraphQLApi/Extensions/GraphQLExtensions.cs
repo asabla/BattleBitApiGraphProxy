@@ -10,6 +10,7 @@ internal static class GraphQLExtensions
         this WebApplicationBuilder builder)
     {
         builder.Services
+            .AddMemoryCache()       // Used by persisted queries pipeline
             .AddGraphQLServer()
                 .InitializeOnStartup()
                 .ModifyRequestOptions(opt =>
@@ -19,10 +20,13 @@ internal static class GraphQLExtensions
                 })
                 .SetPagingOptions(new PagingOptions
                 {
+                    DefaultPageSize = 10_000,
                     MaxPageSize = 10_000,
-                    IncludeTotalCount = true
+                    IncludeTotalCount = true,
                 })
-            .AddTypes()
+                .UseAutomaticPersistedQueryPipeline()
+            .AddInMemoryQueryStorage()
+            .AddGraphQLTypes()
             .AddFiltering()
             .AddProjections()
             .AddSorting()

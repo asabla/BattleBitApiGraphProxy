@@ -11,6 +11,7 @@
     <PackageReference Include="HotChocolate" Version="13.2.1" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="13.2.1" />
     <PackageReference Include="HotChocolate.Data" Version="13.2.1" />
+    <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="13.2.1" />
     <PackageReference Include="HotChocolate.Types.Analyzers" Version="13.2.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
