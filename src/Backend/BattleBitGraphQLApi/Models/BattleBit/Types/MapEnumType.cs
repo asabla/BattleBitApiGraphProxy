@@ -1,0 +1,24 @@
+[Serializable]
+public enum MapType
+{
+    Azagor,
+    Dustydew,
+    Basra,
+    Construction,
+    District,
+    Eduardovo,
+    Frugis,
+    Isle,
+    Lonovo,
+    MultuIslands,
+    Namak,
+    OilDunes,
+    Range,
+    River,
+    SandySunset,
+    Salhan,
+    TensaTown,
+    Valley,
+    Wakistan,
+    WineParadise
+}
