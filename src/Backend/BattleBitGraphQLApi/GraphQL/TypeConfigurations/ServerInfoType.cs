@@ -25,6 +25,10 @@ public class ServerInfoType : ObjectType<ServerInfo>
             .Description("Displays if current map is running day or night mode");
 
         descriptor
+            .Field(x => x.Gamemode)
+            .Description("Current running game mode on the server");
+
+        descriptor
             .Field(x => x.HasPassword)
             .Description("If server has a password for joining or not");
 
@@ -47,6 +51,10 @@ public class ServerInfoType : ObjectType<ServerInfo>
         descriptor
             .Field(x => x.MaxPlayers)
             .Description("Maximum amount of players supported by current server");
+
+        descriptor
+            .Field(x => x.Name)
+            .Description("Current name of the server");
 
         descriptor
             .Field(x => x.Players)
