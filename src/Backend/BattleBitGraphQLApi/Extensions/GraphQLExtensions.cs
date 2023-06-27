@@ -28,8 +28,6 @@ internal static class GraphQLExtensions
             .AddSorting()
             .RegisterService<BattleBitAPIService>(ServiceKind.Resolver);
 
-        builder.Services.AddScoped<BattleBitAPIService>();
-
         return builder;
     }
 }
