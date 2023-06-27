@@ -38,7 +38,7 @@ public class ServerInfoType : ObjectType<ServerInfo>
 
         descriptor
             .Field(x => x.IsOfficial)
-            .Description("If current server is runnign official settings or not");
+            .Description("If current server is running official settings or not");
 
         descriptor
             .Field(x => x.Map)
@@ -58,7 +58,7 @@ public class ServerInfoType : ObjectType<ServerInfo>
 
         descriptor
             .Field(x => x.Players)
-            .Description("Current number of playerse on the server");
+            .Description("Current number of players on the server");
 
         descriptor
             .Field(x => x.QueuePlayers)
