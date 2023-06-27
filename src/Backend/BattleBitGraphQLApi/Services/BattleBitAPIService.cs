@@ -29,9 +29,7 @@ public class BattleBitAPIService
             requestUri: "Servers/GetServerList",
             cancellationToken: cancellationToken);
 
-        var result = await ParseResponse<IReadOnlyList<ServerInfo>>(requestResponse);
-
-        return result;
+        return await ParseResponse<IReadOnlyList<ServerInfo>>(requestResponse);
     }
 
     private async Task<TObject> ParseResponse<TObject>(
