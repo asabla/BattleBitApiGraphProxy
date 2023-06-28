@@ -1,0 +1,58 @@
+query getServersWithAlias {
+  servers_without_anticheat: servers(
+    where: { antiCheat: { eq: NONE } }
+    order: { name: ASC }
+  ) {
+    totalCount
+    items {
+      ...serverInfoFragment
+    }
+  }
+
+  servers_in_eu: servers(
+    where: { region: { eq: EUROPE_CENTRAL } }
+    order: { name: ASC }
+  ) {
+    totalCount
+    items {
+      ...serverInfoFragment
+    }
+  }
+
+  servers_in_america: servers(
+    where: { region: { eq: AMERICA_CENTRAL } }
+    order: { name: ASC }
+  ) {
+    totalCount
+    items {
+      ...serverInfoFragment
+    }
+  }
+
+  medium_servers_without_queue: servers(
+    where: { queuePlayers: { eq: 0 } }
+    order: { name: ASC }
+  ) {
+    totalCount
+    items {
+      ...serverInfoFragment
+    }
+  }
+}
+
+fragment serverInfoFragment on ServerInfo {
+  antiCheat
+  build
+  dayNight
+  gameMode
+  hasPassword
+  hz
+  isOfficial
+  map
+  mapSize
+  maxPlayers
+  name
+  players
+  queuePlayers
+  region
+}

@@ -1,0 +1,25 @@
+query fragmentExample {
+  servers {
+    totalCount
+    items {
+      ...serverInfoFragment
+    }
+  }
+}
+
+fragment serverInfoFragment on ServerInfo {
+  antiCheat
+  build
+  dayNight
+  gameMode
+  hasPassword
+  hz
+  isOfficial
+  map
+  mapSize
+  maxPlayers
+  name
+  players
+  queuePlayers
+  region
+}

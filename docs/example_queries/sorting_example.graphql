@@ -1,0 +1,11 @@
+query sortingExample {
+  servers(order: { name: ASC }) {
+    totalCount
+    items {
+      name
+      region
+      gameMode
+      players
+    }
+  }
+}

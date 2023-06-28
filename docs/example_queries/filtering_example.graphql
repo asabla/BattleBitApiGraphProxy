@@ -1,0 +1,11 @@
+query filteringExample {
+  servers(where: { region: { eq: EUROPE_CENTRAL } }) {
+    totalCount
+    items {
+      name
+      region
+      gameMode
+      players
+    }
+  }
+}

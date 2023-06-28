@@ -1,0 +1,11 @@
+query firstExample {
+  servers {
+    totalCount
+    items {
+      name
+      region
+      gameMode
+      players
+    }
+  }
+}
