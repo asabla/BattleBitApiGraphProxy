@@ -1,4 +1,4 @@
-using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.BattleBit;
+using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.GraphQLModels;
 using BattleBitProxy.Backend.BattleBitGraphQLApi.Services;
 
 namespace BattleBitProxy.Backend.BattleBitGraphQLApi.GraphQL.Resolvers;

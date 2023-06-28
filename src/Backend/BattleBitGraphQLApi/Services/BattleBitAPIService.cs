@@ -1,6 +1,9 @@
 using System.Text.Json;
 
-using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.BattleBit;
+using BattleBitProxy.Backend.BattleBitGraphQLApi.Extensions;
+using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.BattleBitAPIModels;
+using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.GraphQLModels;
+using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.GraphQLModels.Types;
 using BattleBitProxy.Backend.BattleBitGraphQLApi.Types;
 
 namespace BattleBitProxy.Backend.BattleBitGraphQLApi.Services;
@@ -29,7 +32,25 @@ public class BattleBitAPIService
             requestUri: "Servers/GetServerList",
             cancellationToken: cancellationToken);
 
-        return await ParseResponse<IReadOnlyList<ServerInfo>>(requestResponse);
+        var responseObject = await ParseResponse<IReadOnlyList<BattleBitAPIServerInfo>>(requestResponse);
+
+        return responseObject.Select(x => new ServerInfo
+        {
+            AntiCheat = x.AntiCheat.CastTo<AntiCheatType>(),
+            Build = x.Build,
+            DayNight = x.DayNight.CastTo<DayNightType>(),
+            GameMode = x.Gamemode.CastTo<GameModeType>(),
+            HasPassword = x.HasPassword,
+            Hz = x.Hz,
+            IsOfficial = x.IsOfficial,
+            Map = x.Map.CastTo<MapType>(),
+            MapSize = x.MapSize.CastTo<MapSizeType>(),
+            MaxPlayers = x.MaxPlayers,
+            Name = x.Name,
+            Players = x.Players,
+            QueuePlayers = x.QueuePlayers,
+            Region = x.Region.CastTo<RegionType>()
+        }).ToList();
     }
 
     private async Task<TObject> ParseResponse<TObject>(

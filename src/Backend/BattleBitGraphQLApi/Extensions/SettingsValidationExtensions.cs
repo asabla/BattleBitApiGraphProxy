@@ -1,6 +1,5 @@
 using FluentValidation;
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace BattleBitProxy.Backend.BattleBitGraphQLApi.Extensions;
