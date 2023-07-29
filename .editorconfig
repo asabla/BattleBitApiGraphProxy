@@ -362,3 +362,5 @@ dotnet_naming_style.s_camelcase.required_suffix =
 dotnet_naming_style.s_camelcase.word_separator = 
 dotnet_naming_style.s_camelcase.capitalization = camel_case
 
+# Diagnostic rules
+dotnet_diagnostic.RCS1049.severity = none       # Ignore simplefy boolean statements (e.g <value> is false)
