@@ -6,19 +6,24 @@ using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.GraphQLModels;
 using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.GraphQLModels.Types;
 using BattleBitProxy.Backend.BattleBitGraphQLApi.Types;
 
+using Microsoft.Extensions.Caching.Memory;
+
 namespace BattleBitProxy.Backend.BattleBitGraphQLApi.Services;
 
 public class BattleBitAPIService
 {
     private readonly ILogger<BattleBitAPIService> _logger;
     private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IMemoryCache _memoryCache;
 
     public BattleBitAPIService(
         ILogger<BattleBitAPIService> logger,
-        IHttpClientFactory httpClientFactory)
+        IHttpClientFactory httpClientFactory,
+        IMemoryCache memoryCache)
     {
         _logger = logger;
         _httpClientFactory = httpClientFactory;
+        _memoryCache = memoryCache;
     }
 
     public async Task<IReadOnlyList<ServerInfo>> GetAllServersAsync(
@@ -26,46 +31,42 @@ public class BattleBitAPIService
     {
         _logger.LogInformation("Fetching server BattleBit servers");
 
-        var httpClient = _httpClientFactory.CreateClient(HttpClientName.BattleBitAPI);
+        var result = null as IReadOnlyList<BattleBitAPIServerInfo>;
 
-        var requestResponse = await httpClient.GetAsync(
-            requestUri: "Servers/GetServerList",
-            cancellationToken: cancellationToken);
+        result = await _memoryCache.GetOrCreateAsync(
+            key: nameof(BattleBitAPIServerInfo),
+            factory: async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2);
 
-        var responseObject = await ParseResponse<IReadOnlyList<BattleBitAPIServerInfo>>(requestResponse);
+                var httpClient = _httpClientFactory.CreateClient(HttpClientName.BattleBitAPI);
 
-        return responseObject.Select(x => new ServerInfo
+                return await httpClient.GetFromJsonAsync<IReadOnlyList<BattleBitAPIServerInfo>>(
+                        requestUri: "Servers/GetServerList",
+                        options: new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        },
+                        cancellationToken: cancellationToken)
+                    ?? null!;
+            });
+
+        return result?.Select(x => new ServerInfo
         {
-            AntiCheat = x.AntiCheat.CastTo<AntiCheatType>(),
+            AntiCheat = x.AntiCheat.CastTo(AntiCheatType.None),
             Build = x.Build,
-            DayNight = x.DayNight.CastTo<DayNightType>(),
-            GameMode = x.Gamemode.CastTo<GameModeType>(),
+            DayNight = x.DayNight.CastTo(DayNightType.None),
+            GameMode = x.Gamemode.CastTo(GameModeType.None),
             HasPassword = x.HasPassword,
             Hz = x.Hz,
             IsOfficial = x.IsOfficial,
-            Map = x.Map.CastTo<MapType>(),
-            MapSize = x.MapSize.CastTo<MapSizeType>(),
+            Map = x.Map.CastTo(MapType.None),
+            MapSize = x.MapSize.CastTo(MapSizeType.None),
             MaxPlayers = x.MaxPlayers,
             Name = x.Name,
             Players = x.Players,
             QueuePlayers = x.QueuePlayers,
-            Region = x.Region.CastTo<RegionType>()
-        }).ToList();
-    }
-
-    private async Task<TObject> ParseResponse<TObject>(
-        HttpResponseMessage message)
-    {
-        if (message.IsSuccessStatusCode is false)
-            return default!;
-
-        var responseContent = await message.Content.ReadAsStringAsync();
-
-        return JsonSerializer.Deserialize<TObject>(
-            json: responseContent,
-            options: new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            }) ?? default!;
+            Region = x.Region.CastTo(RegionType.None)
+        }).ToList() ?? null!;
     }
 }

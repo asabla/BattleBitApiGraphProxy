@@ -2,9 +2,10 @@ namespace BattleBitProxy.Backend.BattleBitGraphQLApi.Extensions;
 
 public static class HelperExtensions
 {
-    public static TEnum CastTo<TEnum>(this string value)
+    public static TEnum CastTo<TEnum>(this string value, TEnum defaultValue)
         where TEnum : struct, Enum
         => Enum.TryParse(value, out TEnum parsedValue)
-            ? parsedValue
-            : default(TEnum);
+            && Enum.IsDefined(typeof(TEnum), parsedValue)
+                ? parsedValue
+                : defaultValue;
 }

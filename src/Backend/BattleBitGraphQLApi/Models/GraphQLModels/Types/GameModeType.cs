@@ -9,6 +9,9 @@ public enum GameModeType
     [GraphQLDescription("Conquest")]
     CONQ,
 
+    [GraphQLDescription("CTF")]
+    CTF,
+
     [GraphQLDescription("Domination")]
     DOMI,
 

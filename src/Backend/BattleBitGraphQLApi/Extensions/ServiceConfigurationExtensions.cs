@@ -8,6 +8,9 @@ public static class ServiceConfigurationExtensions
     public static WebApplicationBuilder ConfigureServices(
         this WebApplicationBuilder builder)
     {
+        // Register memory cache with tracking statistics enabled
+        builder.Services.AddMemoryCache(opt => opt.TrackStatistics = true);
+
         // Register needed BattleBitAPI services
         builder.Services.AddHttpClient(HttpClientName.BattleBitAPI, opt
             => opt.BaseAddress = new Uri("https://publicapi.battlebit.cloud"));
