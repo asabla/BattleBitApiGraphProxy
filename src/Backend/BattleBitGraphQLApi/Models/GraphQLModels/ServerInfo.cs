@@ -8,6 +8,10 @@ namespace BattleBitProxy.Backend.BattleBitGraphQLApi.Models.GraphQLModels;
 """)]
 public class ServerInfo
 {
+    [GraphQLDescription("Raw string representation of values from BattleBit API")]
+    public RawData RawAPIData { get; set; } = null!;
+
+
     [GraphQLDescription("Which AntiCheat system is in use on server")]
     public AntiCheatType AntiCheat { get; set; }
 
@@ -49,4 +53,26 @@ public class ServerInfo
 
     [GraphQLDescription("Which region current server is hosted in")]
     public RegionType Region { get; set; }
+}
+
+[GraphQLDescription("Raw string representation of values from BattleBit API")]
+public class RawData
+{
+    [GraphQLDescription("String representation of AntiCheat system in use")]
+    public string AntiCheatTypeString { get; set; } = null!;
+
+    [GraphQLDescription("String representation of DayNight type used by server")]
+    public string DayNightTypeString { get; set; } = null!;
+
+    [GraphQLDescription("String representation of GameMode used by server")]
+    public string GameModeTypeString { get; set; } = null!;
+
+    [GraphQLDescription("String representation of MapType used by server")]
+    public string MapTypeString { get; set; } = null!;
+
+    [GraphQLDescription("String representation of MapSize used by server")]
+    public string MapSizeTypeString { get; set; } = null!;
+
+    [GraphQLDescription("String representation of Region used by server")]
+    public string RegionTypeString { get; set; } = null!;
 }
