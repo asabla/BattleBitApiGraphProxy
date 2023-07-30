@@ -28,16 +28,13 @@ public class BattleBitAPIService
 
     public async Task<IReadOnlyList<ServerInfo>> GetAllServersAsync(
         CancellationToken cancellationToken = default)
-    {
-        _logger.LogInformation("Fetching server BattleBit servers");
-
-        var result = null as IReadOnlyList<BattleBitAPIServerInfo>;
-
-        result = await _memoryCache.GetOrCreateAsync(
+        => await _memoryCache.GetOrCreateAsync(
             key: nameof(BattleBitAPIServerInfo),
             factory: async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2);
+
+                _logger.LogInformation("Fetching server BattleBit servers");
 
                 var httpClient = _httpClientFactory.CreateClient(HttpClientName.BattleBitAPI);
 
@@ -49,24 +46,32 @@ public class BattleBitAPIService
                         },
                         cancellationToken: cancellationToken)
                     ?? null!;
-            });
-
-        return result?.Select(x => new ServerInfo
-        {
-            AntiCheat = x.AntiCheat.CastTo(AntiCheatType.None),
-            Build = x.Build,
-            DayNight = x.DayNight.CastTo(DayNightType.None),
-            GameMode = x.Gamemode.CastTo(GameModeType.None),
-            HasPassword = x.HasPassword,
-            Hz = x.Hz,
-            IsOfficial = x.IsOfficial,
-            Map = x.Map.CastTo(MapType.None),
-            MapSize = x.MapSize.CastTo(MapSizeType.None),
-            MaxPlayers = x.MaxPlayers,
-            Name = x.Name,
-            Players = x.Players,
-            QueuePlayers = x.QueuePlayers,
-            Region = x.Region.CastTo(RegionType.None)
-        }).ToList() ?? null!;
-    }
+            })
+            .ContinueWith(taskResult
+                => taskResult.Result?.Select(x => new ServerInfo
+                {
+                    AntiCheat = x.AntiCheat.CastTo(AntiCheatType.None),
+                    Build = x.Build,
+                    DayNight = x.DayNight.CastTo(DayNightType.None),
+                    GameMode = x.Gamemode.CastTo(GameModeType.None),
+                    HasPassword = x.HasPassword,
+                    Hz = x.Hz,
+                    IsOfficial = x.IsOfficial,
+                    Map = x.Map.CastTo(MapType.None),
+                    MapSize = x.MapSize.CastTo(MapSizeType.None),
+                    MaxPlayers = x.MaxPlayers,
+                    Name = x.Name,
+                    Players = x.Players,
+                    QueuePlayers = x.QueuePlayers,
+                    Region = x.Region.CastTo(RegionType.None),
+                    RawAPIData = new()
+                    {
+                        AntiCheatTypeString = x.AntiCheat,
+                        DayNightTypeString = x.DayNight,
+                        GameModeTypeString = x.Gamemode,
+                        MapSizeTypeString = x.MapSize,
+                        MapTypeString = x.Map,
+                        RegionTypeString = x.Region
+                    }
+                }).ToList()) ?? null!;
 }
