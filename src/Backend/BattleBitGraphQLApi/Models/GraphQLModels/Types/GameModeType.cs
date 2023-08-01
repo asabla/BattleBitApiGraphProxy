@@ -10,7 +10,7 @@ public enum GameModeType
     CONQ,
 
     [GraphQLDescription("CTF")]
-    CTF,
+    CaptureTheFlag,
 
     [GraphQLDescription("Domination")]
     DOMI,
