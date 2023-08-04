@@ -1,0 +1,386 @@
+﻿schema {
+  query: Query
+}
+
+"All supported queries"
+type Query {
+  "Fetches all BattleBit servers from public API"
+  servers(skip: Int take: Int where: ServerInfoFilterInput order: [ServerInfoSortInput!]): ServersCollectionSegment
+}
+
+"    All current information listed by each hosted and online server from\r\n    BattleBits own public API"
+input ServerInfoFilterInput {
+  and: [ServerInfoFilterInput!]
+  or: [ServerInfoFilterInput!]
+  "Raw string representation of values from BattleBit API"
+  rawAPIData: RawDataFilterInput
+  "Which AntiCheat system is in use on server"
+  antiCheat: AntiCheatTypeOperationFilterInput
+  "Which current build is in use on the server"
+  build: StringOperationFilterInput
+  "Displays if current map is running day or night mode"
+  dayNight: DayNightTypeOperationFilterInput
+  "Current running game mode on the server"
+  gameMode: GameModeTypeOperationFilterInput
+  "If server has a password is password protected or not"
+  hasPassword: BooleanOperationFilterInput
+  "Current tickrate for server"
+  hz: IntOperationFilterInput
+  "If server is running official settings or not"
+  isOfficial: BooleanOperationFilterInput
+  "Which current map is running on the server"
+  map: MapTypeOperationFilterInput
+  "String representation of maximum number of players"
+  mapSize: MapSizeTypeOperationFilterInput
+  "Maximum amount of players supported by current server"
+  maxPlayers: IntOperationFilterInput
+  "Current name for server"
+  name: StringOperationFilterInput
+  "Current number of players on server"
+  players: IntOperationFilterInput
+  "Number of players in queue for joining"
+  queuePlayers: IntOperationFilterInput
+  "Which region current server is hosted in"
+  region: RegionTypeOperationFilterInput
+}
+
+"    All current information listed by each hosted and online server from\r\n    BattleBits own public API"
+input ServerInfoSortInput {
+  "Raw string representation of values from BattleBit API"
+  rawAPIData: RawDataSortInput
+  "Which AntiCheat system is in use on server"
+  antiCheat: SortEnumType
+  "Which current build is in use on the server"
+  build: SortEnumType
+  "Displays if current map is running day or night mode"
+  dayNight: SortEnumType
+  "Current running game mode on the server"
+  gameMode: SortEnumType
+  "If server has a password is password protected or not"
+  hasPassword: SortEnumType
+  "Current tickrate for server"
+  hz: SortEnumType
+  "If server is running official settings or not"
+  isOfficial: SortEnumType
+  "Which current map is running on the server"
+  map: SortEnumType
+  "String representation of maximum number of players"
+  mapSize: SortEnumType
+  "Maximum amount of players supported by current server"
+  maxPlayers: SortEnumType
+  "Current name for server"
+  name: SortEnumType
+  "Current number of players on server"
+  players: SortEnumType
+  "Number of players in queue for joining"
+  queuePlayers: SortEnumType
+  "Which region current server is hosted in"
+  region: SortEnumType
+}
+
+"A segment of a collection."
+type ServersCollectionSegment {
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  "A flattened list of the items."
+  items: [ServerInfo!]
+  totalCount: Int!
+}
+
+"The multiplier path scalar represents a valid GraphQL multiplier path string."
+scalar MultiplierPath
+
+"Raw string representation of values from BattleBit API"
+input RawDataFilterInput {
+  and: [RawDataFilterInput!]
+  or: [RawDataFilterInput!]
+  "String representation of AntiCheat system in use"
+  antiCheatTypeString: StringOperationFilterInput
+  "String representation of DayNight type used by server"
+  dayNightTypeString: StringOperationFilterInput
+  "String representation of GameMode used by server"
+  gameModeTypeString: StringOperationFilterInput
+  "String representation of MapType used by server"
+  mapTypeString: StringOperationFilterInput
+  "String representation of MapSize used by server"
+  mapSizeTypeString: StringOperationFilterInput
+  "String representation of Region used by server"
+  regionTypeString: StringOperationFilterInput
+}
+
+input AntiCheatTypeOperationFilterInput {
+  eq: AntiCheatType
+  neq: AntiCheatType
+  in: [AntiCheatType!]
+  nin: [AntiCheatType!]
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input DayNightTypeOperationFilterInput {
+  eq: DayNightType
+  neq: DayNightType
+  in: [DayNightType!]
+  nin: [DayNightType!]
+}
+
+input GameModeTypeOperationFilterInput {
+  eq: GameModeType
+  neq: GameModeType
+  in: [GameModeType!]
+  nin: [GameModeType!]
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input MapTypeOperationFilterInput {
+  eq: MapType
+  neq: MapType
+  in: [MapType!]
+  nin: [MapType!]
+}
+
+input MapSizeTypeOperationFilterInput {
+  eq: MapSizeType
+  neq: MapSizeType
+  in: [MapSizeType!]
+  nin: [MapSizeType!]
+}
+
+input RegionTypeOperationFilterInput {
+  eq: RegionType
+  neq: RegionType
+  in: [RegionType!]
+  nin: [RegionType!]
+}
+
+"Raw string representation of values from BattleBit API"
+input RawDataSortInput {
+  "String representation of AntiCheat system in use"
+  antiCheatTypeString: SortEnumType
+  "String representation of DayNight type used by server"
+  dayNightTypeString: SortEnumType
+  "String representation of GameMode used by server"
+  gameModeTypeString: SortEnumType
+  "String representation of MapType used by server"
+  mapTypeString: SortEnumType
+  "String representation of MapSize used by server"
+  mapSizeTypeString: SortEnumType
+  "String representation of Region used by server"
+  regionTypeString: SortEnumType
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+"Information about the offset pagination."
+type CollectionSegmentInfo {
+  "Indicates whether more items exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more items exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+}
+
+"    All current information listed by each hosted and online server from\r\n    BattleBits own public API"
+type ServerInfo {
+  "Raw string representation of values from BattleBit API"
+  rawAPIData: RawData!
+  "Which AntiCheat system is in use on server"
+  antiCheat: AntiCheatType!
+  "Which current build is in use on the server"
+  build: String!
+  "Displays if current map is running day or night mode"
+  dayNight: DayNightType!
+  "Current running game mode on the server"
+  gameMode: GameModeType!
+  "If server has a password is password protected or not"
+  hasPassword: Boolean!
+  "Current tickrate for server"
+  hz: Int!
+  "If server is running official settings or not"
+  isOfficial: Boolean!
+  "Which current map is running on the server"
+  map: MapType!
+  "String representation of maximum number of players"
+  mapSize: MapSizeType!
+  "Maximum amount of players supported by current server"
+  maxPlayers: Int!
+  "Current name for server"
+  name: String!
+  "Current number of players on server"
+  players: Int!
+  "Number of players in queue for joining"
+  queuePlayers: Int!
+  "Which region current server is hosted in"
+  region: RegionType!
+}
+
+"Supported time cycles"
+enum DayNightType {
+  "None - was unable to parse value"
+  NONE
+  "Day"
+  DAY
+  "Night"
+  NIGHT
+}
+
+"Supported AntiCheat systems"
+enum AntiCheatType {
+  "No detected Anti system is active"
+  NONE
+  "Easy AntiCheat"
+  EAC
+}
+
+"Supported game modes"
+enum GameModeType {
+  "None - was unable to prase value"
+  NONE
+  "Conquest"
+  CONQ
+  "CTF"
+  CAPTURE_THE_FLAG
+  "Domination"
+  DOMI
+  "Elimination"
+  ELI
+  "Frontline"
+  FRONTLINE
+  "Gun game free for all"
+  GUN_GAME_FFA
+  "Infantry Conquest"
+  INFCONQ
+  "Rush"
+  RUSH
+  "Team death match"
+  TDM
+}
+
+"Available maps"
+enum MapType {
+  "None - was unable to parse value"
+  NONE
+  "Azagor"
+  AZAGOR
+  "Dustydew"
+  DUSTYDEW
+  "Basra"
+  BASRA
+  "Construction"
+  CONSTRUCTION
+  "District"
+  DISTRICT
+  "Eduardovo"
+  EDUARDOVO
+  "Frugis"
+  FRUGIS
+  "Isle"
+  ISLE
+  "Lonovo"
+  LONOVO
+  "MultuIslands"
+  MULTU_ISLANDS
+  "Namak"
+  NAMAK
+  "OilDunes"
+  OIL_DUNES
+  "Range"
+  RANGE
+  "River"
+  RIVER
+  "SandySunset"
+  SANDY_SUNSET
+  "Salhan"
+  SALHAN
+  "TensaTown"
+  TENSA_TOWN
+  "Valley"
+  VALLEY
+  "Wakistan"
+  WAKISTAN
+  "WineParadise"
+  WINE_PARADISE
+}
+
+"Supported map sizes"
+enum MapSizeType {
+  "None - was unable to parse"
+  NONE
+  "256 players (largest supported)"
+  ULTRA
+  "128 players (second largest)"
+  BIG
+  "64 players"
+  MEDIUM
+  "32 players (smallest supported)"
+  TINY
+}
+
+"Supported hosting regions"
+enum RegionType {
+  "None - was unable to parse value"
+  NONE
+  "Central America"
+  AMERICA_CENTRAL
+  "Central Australia"
+  AUSTRALIA_CENTRAL
+  "Central Brazil"
+  BRAZIL_CENTRAL
+  "Central Europe"
+  EUROPE_CENTRAL
+  "Central Japan"
+  JAPAN_CENTRAL
+}
+
+"Raw string representation of values from BattleBit API"
+type RawData {
+  "String representation of AntiCheat system in use"
+  antiCheatTypeString: String!
+  "String representation of DayNight type used by server"
+  dayNightTypeString: String!
+  "String representation of GameMode used by server"
+  gameModeTypeString: String!
+  "String representation of MapType used by server"
+  mapTypeString: String!
+  "String representation of MapSize used by server"
+  mapSizeTypeString: String!
+  "String representation of Region used by server"
+  regionTypeString: String!
+}
+
+"The cost directives is used to express the complexity of a field."
+directive @cost("Defines the complexity of the field." complexity: Int! = 1 "Defines field arguments that act as complexity multipliers." multipliers: [MultiplierPath!] defaultMultiplier: Int) on FIELD_DEFINITION

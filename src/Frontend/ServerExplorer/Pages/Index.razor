@@ -1,0 +1,135 @@
+﻿@page "/"
+
+<PageTitle>Battlebit Server explorer</PageTitle>
+
+<UseGetServers Context="result"
+                ServerName="@_serverName"
+                Regions="@_regionTypes.ToArray()"
+                GameModes="@_gameModes.ToArray()"
+                Maps="@_mapTypes.ToArray()"
+                MapSizes="@_mapSizeTypes.ToArray()">
+    <ChildContent>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField @bind-Value="_serverName"
+                            Label="Server name"
+                            Variant="Variant.Outlined"
+                            HelperText="Part of the server name you want to search for"
+                            HelperTextOnFocus="true"
+                            DebounceInterval="300" >
+                </MudTextField>
+                <MudSelect T="string"
+                            Label="Game modes"
+                            MultiSelection="true"
+                            @bind-Value="value"
+                            @bind-SelectedValues="options">
+                    @foreach (var state in states)
+                    {
+                        <MudSelectItem T="string" Value="@state">
+                            @state
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+
+            <MudItem xs="12">
+                <MudExpansionPanels MultiExpansion="true">
+                    @foreach (var server in result.Servers!.Items!)
+                    {
+                        <MudExpansionPanel>
+                            <TitleContent>
+                                <div class="d-flex">
+                                    <MudIcon Icon="@Icons.Material.Filled.Computer"
+                                            class="mr-3" />
+
+                                    <MudIcon Icon="@GetLockIcon(server.HasPassword)"
+                                            Title="@GetLockAltString(server.HasPassword)"
+                                            class="mr-3" />
+
+                                    <MudChip Variant="Variant.Outlined" Color="GetOfficialColor(server.IsOfficial)">
+                                            @GetOfficialString(server.IsOfficial)
+                                    </MudChip>
+
+                                    <MudText>
+                                        @server.Name - Players: @server.Players/@server.MaxPlayers (@server.QueuePlayers)
+                                    </MudText>
+                                </div>
+                            </TitleContent>
+
+                            <ChildContent>
+                                @* Ordinary data *@
+                                <MudCard>
+                                    <MudCardContent>
+                                        <MudText>Anticheat system: @server.AntiCheat</MudText>
+                                        <MudText>Region: @server.Region</MudText>
+                                        <MudText>Day or night: @server.DayNight</MudText>
+                                        <MudText>Game mode: @server.GameMode</MudText>
+                                    </MudCardContent>
+
+                                    @* TODO: add join server action here? *@
+                                    @* <MudCardActions>
+                                    </MudCardActions> *@
+                                </MudCard>
+
+                                @* Raw string data *@
+                                <MudCard>
+                                    <MudCardContent>
+                                        <MudText>Anticheat string: @server.RawAPIData.AntiCheatTypeString</MudText>
+                                        <MudText>Day & night string: @server.RawAPIData.DayNightTypeString</MudText>
+                                        <MudText>Game mode string: @server.RawAPIData.GameModeTypeString</MudText>
+                                        <MudText>Map type string: @server.RawAPIData.MapTypeString</MudText>
+                                        <MudText>Map size string: @server.RawAPIData.MapSizeTypeString</MudText>
+                                        <MudText>Region type string: @server.RawAPIData.RegionTypeString</MudText>
+                                    </MudCardContent>
+                                </MudCard>
+                            </ChildContent>
+                        </MudExpansionPanel>
+                    }
+                </MudExpansionPanels>
+            </MudItem>
+        </MudGrid>
+    </ChildContent>
+
+    <ErrorContent>
+        Something went wrong fetching servers<br />
+        @result.First().Message
+    </ErrorContent>
+
+    <LoadingContent>
+        <MudText>Fetching servers...</MudText>
+        <MudProgressLinear Color="Color.Primary" Indeterminate="true" class="my-7" />
+    </LoadingContent>
+</UseGetServers>
+
+@code {
+    private string _serverName = "";
+    private IEnumerable<RegionType> _regionTypes = Enumerable.Empty<RegionType>();
+    private IEnumerable<GameModeType> _gameModes = Enumerable.Empty<GameModeType>();
+    private IEnumerable<MapType> _mapTypes = Enumerable.Empty<MapType>();
+    private IEnumerable<MapSizeType> _mapSizeTypes = Enumerable.Empty<MapSizeType>();
+
+    private Color GetOfficialColor(bool isOfficial)
+        => isOfficial ? Color.Success : Color.Default;
+
+    private string GetOfficialString(bool isOfficial)
+        => isOfficial ? "Official" : "Unofficial";
+
+    private string GetLockIcon(bool hasPassword)
+        => hasPassword
+            ? Icons.Material.Filled.Lock
+            : Icons.Material.Filled.LockOpen;
+
+    private string GetLockAltString(bool hasPassword)
+        => hasPassword
+            ? "Server is pasword protected"
+            : "Server has no password protection";
+
+    private string[] GetGameModeList()
+        => Enum.GetNames(typeof(GameModeType)).ToArray();
+
+
+    private string value { get; set; } = "Nothing selected";
+    private IEnumerable<string> options { get; set; } = new HashSet<string>() { "None" };
+
+    private string[] states => GetGameModeList();
+}
