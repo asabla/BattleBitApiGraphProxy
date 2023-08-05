@@ -23,10 +23,10 @@
                             MultiSelection="true"
                             @bind-Value="value"
                             @bind-SelectedValues="options">
-                    @foreach (var state in states)
+                    @foreach (var mode in _gameModeList)
                     {
-                        <MudSelectItem T="string" Value="@state">
-                            @state
+                        <MudSelectItem T="string" Value="@mode">
+                            @mode
                         </MudSelectItem>
                     }
                 </MudSelect>
@@ -127,9 +127,8 @@
     private string[] GetGameModeList()
         => Enum.GetNames(typeof(GameModeType)).ToArray();
 
-
     private string value { get; set; } = "Nothing selected";
     private IEnumerable<string> options { get; set; } = new HashSet<string>() { "None" };
 
-    private string[] states => GetGameModeList();
+    private string[] _gameModeList => GetGameModeList();
 }
