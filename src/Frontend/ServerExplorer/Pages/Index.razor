@@ -18,15 +18,33 @@
                             HelperTextOnFocus="true"
                             DebounceInterval="300" >
                 </MudTextField>
+            </MudItem>
+
+            <MudItem xs="6">
                 <MudSelect T="string"
                             Label="Game modes"
                             MultiSelection="true"
-                            @bind-Value="value"
-                            @bind-SelectedValues="options">
+                            @bind-Value="_gameModeValue"
+                            @bind-SelectedValues="_gameModeOptions">
                     @foreach (var mode in _gameModeList)
                     {
                         <MudSelectItem T="string" Value="@mode">
                             @mode
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+
+            <MudItem xs="6">
+                <MudSelect T="string"
+                            Label="Server regions"
+                            MultiSelection="true"
+                            @bind-Value="_regionValue"
+                            @bind-SelectedValues="_regionOptions">
+                    @foreach (var region in _regionList)
+                    {
+                        <MudSelectItem T="string" Value="region">
+                            @region
                         </MudSelectItem>
                     }
                 </MudSelect>
@@ -127,8 +145,15 @@
     private string[] GetGameModeList()
         => Enum.GetNames(typeof(GameModeType)).ToArray();
 
-    private string value { get; set; } = "Nothing selected";
-    private IEnumerable<string> options { get; set; } = new HashSet<string>() { "None" };
+    private string[] GetRegionList()
+        => Enum.GetNames(typeof(RegionType)).ToArray();
 
+    private string _gameModeValue { get; set; } = "Nothing selected";
+    private IEnumerable<string> _gameModeOptions { get; set; } = new HashSet<string>() { "None" };
     private string[] _gameModeList => GetGameModeList();
+
+
+    private string _regionValue { get; set; } = "Nothing selected";
+    private IEnumerable<string> _regionOptions { get; set; } = new HashSet<string>() { "None" };
+    private string[] _regionList => GetRegionList();
 }
