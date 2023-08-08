@@ -19,5 +19,8 @@ public enum RegionType
     Europe_Central,
 
     [GraphQLDescription("Central Japan")]
-    Japan_Central
+    Japan_Central,
+
+    [GraphQLDescription("Developer server")]
+    Developer_Server
 }
