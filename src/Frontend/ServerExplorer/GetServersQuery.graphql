@@ -34,6 +34,7 @@ fragment response on ServerInfo {
   hasPassword
   hz
   isOfficial
+  lastUpdated
   map
   mapSize
   maxPlayers

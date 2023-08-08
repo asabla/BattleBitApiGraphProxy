@@ -42,6 +42,8 @@ input ServerInfoFilterInput {
   queuePlayers: IntOperationFilterInput
   "Which region current server is hosted in"
   region: RegionTypeOperationFilterInput
+  "Last time data was fetched from Battlebit API"
+  lastUpdated: DateTimeOperationFilterInput
 }
 
 "    All current information listed by each hosted and online server from\r\n    BattleBits own public API"
@@ -76,6 +78,8 @@ input ServerInfoSortInput {
   queuePlayers: SortEnumType
   "Which region current server is hosted in"
   region: SortEnumType
+  "Last time data was fetched from Battlebit API"
+  lastUpdated: SortEnumType
 }
 
 "A segment of a collection."
@@ -185,6 +189,21 @@ input RegionTypeOperationFilterInput {
   nin: [RegionType!]
 }
 
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
 "Raw string representation of values from BattleBit API"
 input RawDataSortInput {
   "String representation of AntiCheat system in use"
@@ -246,7 +265,12 @@ type ServerInfo {
   queuePlayers: Int!
   "Which region current server is hosted in"
   region: RegionType!
+  "Last time data was fetched from Battlebit API"
+  lastUpdated: DateTime!
 }
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
 
 "Supported time cycles"
 enum DayNightType {

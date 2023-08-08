@@ -57,6 +57,7 @@ public class BattleBitAPIService
                     HasPassword = x.HasPassword,
                     Hz = x.Hz,
                     IsOfficial = x.IsOfficial,
+                    LastUpdated = x.LastUpdated,
                     Map = x.Map.CastTo(MapType.None),
                     MapSize = x.MapSize.CastTo(MapSizeType.None),
                     MaxPlayers = x.MaxPlayers,

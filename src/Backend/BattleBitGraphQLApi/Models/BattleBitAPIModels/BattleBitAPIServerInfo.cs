@@ -17,4 +17,6 @@ public class BattleBitAPIServerInfo
     public int Players { get; set; }
     public int QueuePlayers { get; set; }
     public string Region { get; set; } = null!;
+
+    public DateTime LastUpdated => DateTime.UtcNow;
 }

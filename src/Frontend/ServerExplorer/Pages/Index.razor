@@ -2,55 +2,59 @@
 
 <PageTitle>Battlebit Server explorer</PageTitle>
 
-<UseGetServers Context="result"
-                ServerName="@_serverName"
-                Regions="@_regionTypes.ToArray()"
-                GameModes="@_gameModes.ToArray()"
-                Maps="@_mapTypes.ToArray()"
-                MapSizes="@_mapSizeTypes.ToArray()">
-    <ChildContent>
-        <MudGrid>
-            <MudItem xs="12">
-                <MudTextField @bind-Value="_serverName"
-                            Label="Server name"
-                            Variant="Variant.Outlined"
-                            HelperText="Part of the server name you want to search for"
-                            HelperTextOnFocus="true"
-                            DebounceInterval="300" >
-                </MudTextField>
-            </MudItem>
+<MudGrid Spacing="2">
+    <MudItem xs="12">
+        <MudTextField @bind-Value="_serverName"
+                    Label="Server name"
+                    Variant="Variant.Outlined"
+                    Clearable="true"
+                    DebounceInterval="300" >
+        </MudTextField>
+    </MudItem>
 
-            <MudItem xs="6">
-                <MudSelect T="string"
-                            Label="Game modes"
-                            MultiSelection="true"
-                            @bind-Value="_gameModeValue"
-                            @bind-SelectedValues="_gameModeOptions">
-                    @foreach (var mode in _gameModeList)
-                    {
-                        <MudSelectItem T="string" Value="@mode">
-                            @mode
-                        </MudSelectItem>
-                    }
-                </MudSelect>
-            </MudItem>
+    <MudItem xs="6">
+        <MudSelect T="string"
+                    Label="Game modes"
+                    Variant="Variant.Outlined"
+                    MultiSelection="true"
+                    Clearable="true"
+                    @bind-Value="_gameModeValue"
+                    @bind-SelectedValues="_gameModeOptions">
+            @foreach (var mode in _gameModeList)
+            {
+                <MudSelectItem T="string" Value="@mode">
+                    @mode
+                </MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
 
-            <MudItem xs="6">
-                <MudSelect T="string"
-                            Label="Server regions"
-                            MultiSelection="true"
-                            @bind-Value="_regionValue"
-                            @bind-SelectedValues="_regionOptions">
-                    @foreach (var region in _regionList)
-                    {
-                        <MudSelectItem T="string" Value="region">
-                            @region
-                        </MudSelectItem>
-                    }
-                </MudSelect>
-            </MudItem>
+    <MudItem xs="6">
+        <MudSelect T="string"
+                    Label="Server regions"
+                    Variant="Variant.Outlined"
+                    MultiSelection="true"
+                    Clearable="true"
+                    @bind-Value="_regionValue"
+                    @bind-SelectedValues="_regionOptions">
+            @foreach (var region in _regionList)
+            {
+                <MudSelectItem T="string" Value="region">
+                    @region
+                </MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
 
-            <MudItem xs="12">
+    @* Server list *@
+    <MudItem xs="12">
+        <UseGetServers Context="result"
+                        ServerName="@_serverName"
+                        Regions="@_regionTypes.ToArray()"
+                        GameModes="@_gameModes.ToArray()"
+                        Maps="@_mapTypes.ToArray()"
+                        MapSizes="@_mapSizeTypes.ToArray()">
+            <ChildContent>
                 <MudExpansionPanels MultiExpansion="true">
                     @foreach (var server in result.Servers!.Items!)
                     {
@@ -82,6 +86,7 @@
                                         <MudText>Region: @server.Region</MudText>
                                         <MudText>Day or night: @server.DayNight</MudText>
                                         <MudText>Game mode: @server.GameMode</MudText>
+                                        <MudText>Last update: @server.LastUpdated</MudText>
                                     </MudCardContent>
 
                                     @* TODO: add join server action here? *@
@@ -104,20 +109,21 @@
                         </MudExpansionPanel>
                     }
                 </MudExpansionPanels>
-            </MudItem>
-        </MudGrid>
-    </ChildContent>
+            </ChildContent>
 
-    <ErrorContent>
-        Something went wrong fetching servers<br />
-        @result.First().Message
-    </ErrorContent>
+            <ErrorContent>
+                Something went wrong fetching servers<br />
+                @result.First().Message
+            </ErrorContent>
 
-    <LoadingContent>
-        <MudText>Fetching servers...</MudText>
-        <MudProgressLinear Color="Color.Primary" Indeterminate="true" class="my-7" />
-    </LoadingContent>
-</UseGetServers>
+            <LoadingContent>
+                <MudText>Fetching servers...</MudText>
+                <MudProgressLinear Color="Color.Primary" Indeterminate="true" class="my-7" />
+            </LoadingContent>
+        </UseGetServers>
+    </MudItem>
+</MudGrid>
+
 
 @code {
     private string _serverName = "";
@@ -149,11 +155,10 @@
         => Enum.GetNames(typeof(RegionType)).ToArray();
 
     private string _gameModeValue { get; set; } = "Nothing selected";
-    private IEnumerable<string> _gameModeOptions { get; set; } = new HashSet<string>() { "None" };
+    private IEnumerable<string> _gameModeOptions { get; set; } = new HashSet<string>();
     private string[] _gameModeList => GetGameModeList();
 
-
     private string _regionValue { get; set; } = "Nothing selected";
-    private IEnumerable<string> _regionOptions { get; set; } = new HashSet<string>() { "None" };
+    private IEnumerable<string> _regionOptions { get; set; } = new HashSet<string>();
     private string[] _regionList => GetRegionList();
 }
