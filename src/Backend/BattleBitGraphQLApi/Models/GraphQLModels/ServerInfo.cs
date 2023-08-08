@@ -53,6 +53,9 @@ public class ServerInfo
 
     [GraphQLDescription("Which region current server is hosted in")]
     public RegionType Region { get; set; }
+
+    [GraphQLDescription("Last time data was fetched from Battlebit API")]
+    public DateTime LastUpdated { get; set; }
 }
 
 [GraphQLDescription("Raw string representation of values from BattleBit API")]

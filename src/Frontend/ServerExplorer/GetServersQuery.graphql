@@ -1,0 +1,53 @@
+query GetServers(
+  $serverName: String
+  $regions: [RegionType!]
+  $gameModes: [GameModeType!]
+  $maps: [MapType!]
+  $mapSizes: [MapSizeType!]
+) {
+  servers(
+    where: {
+      name: { contains: $serverName }
+      region: { nin: $regions }
+      gameMode: { nin: $gameModes }
+      map: { nin: $maps }
+      mapSize: { nin: $mapSizes }
+    }
+    order: { name: ASC }
+  ) {
+    totalCount
+    items {
+      ...response
+    }
+  }
+}
+
+fragment response on ServerInfo {
+  antiCheat
+  name
+  players
+  queuePlayers
+  region
+  build
+  dayNight
+  gameMode
+  hasPassword
+  hz
+  isOfficial
+  lastUpdated
+  map
+  mapSize
+  maxPlayers
+  rawAPIData {
+    ...rawData
+  }
+}
+
+fragment rawData on RawData {
+  antiCheatTypeString
+  dayNightTypeString
+  gameModeTypeString
+  mapTypeString
+  mapSizeTypeString
+  regionTypeString
+}
