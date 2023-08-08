@@ -312,6 +312,8 @@ enum GameModeType {
   RUSH
   "Team death match"
   TDM
+  "Voxel fortify"
+  VOXEL_FORTIFY
 }
 
 "Available maps"
@@ -371,7 +373,7 @@ enum MapSizeType {
   "64 players"
   MEDIUM
   "32 players (smallest supported)"
-  TINY
+  SMALL
 }
 
 "Supported hosting regions"
@@ -388,6 +390,8 @@ enum RegionType {
   EUROPE_CENTRAL
   "Central Japan"
   JAPAN_CENTRAL
+  "Developer server"
+  DEVELOPER_SERVER
 }
 
 "Raw string representation of values from BattleBit API"

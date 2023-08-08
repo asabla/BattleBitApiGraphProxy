@@ -31,5 +31,8 @@ public enum GameModeType
     RUSH,
 
     [GraphQLDescription("Team death match")]
-    TDM
+    TDM,
+
+    [GraphQLDescription("Voxel fortify")]
+    VoxelFortify
 }
