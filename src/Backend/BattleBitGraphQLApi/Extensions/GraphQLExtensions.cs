@@ -12,6 +12,7 @@ internal static class GraphQLExtensions
         builder.Services
             .AddMemoryCache()       // Used by persisted queries pipeline
             .AddGraphQLServer()
+                .AllowIntrospection(builder.Environment.IsDevelopment())
                 .InitializeOnStartup()
                 .ModifyRequestOptions(opt =>
                 {
