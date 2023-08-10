@@ -9,7 +9,7 @@ builder
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 // TODO: make configuration of this prettier
 app.UseCors(options => options
