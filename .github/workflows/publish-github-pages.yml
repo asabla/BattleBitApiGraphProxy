@@ -71,10 +71,16 @@ jobs:
       # underscore in them.
       - name: "Add .nojekyll file"
         run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
+        
+      # Prevent step from running if there is an outage
+      - name: Check GitHub Pages status
+        uses: crazy-max/ghaction-github-status@v3
+        with:
+          pages_threshold: major_outage
 
       - name: "Commit to Github pages branch"
         if: success()
-        uses: crazy-max/ghaction-github-pages@v1.5.1
+        uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: gh-pages
           #build_dir: ${{ env.PUBLISH_DIR }}
