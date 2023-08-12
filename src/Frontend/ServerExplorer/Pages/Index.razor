@@ -163,13 +163,17 @@
 
     private void OnGameModeChanged(IEnumerable<string> gameModes)
     {
-        _gameModes = Enum.GetValues<GameModeType>()
-            .Where(x => gameModes.Contains(x.ToString()) is false);
+        _gameModes = gameModes is null || gameModes.Count() == 0
+            ? Enumerable.Empty<GameModeType>()
+            : Enum.GetValues<GameModeType>()
+                .Where(x => gameModes.Contains(x.ToString()) is false);
     }
 
     private void OnRegionChanged(IEnumerable<string> regions)
     {
-        _regionTypes = Enum.GetValues<RegionType>()
-            .Where(x => regions.Contains(x.ToString()) is false);
+        _regionTypes = regions is null || regions.Count() == 0
+            ? Enumerable.Empty<RegionType>()
+            : Enum.GetValues<RegionType>()
+                .Where(x => regions.Contains(x.ToString()) is false);
     }
 }
