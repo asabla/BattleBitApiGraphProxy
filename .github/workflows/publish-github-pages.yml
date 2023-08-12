@@ -66,12 +66,17 @@ jobs:
         with:
           html_path: ${{ env.PUBLISH_DIR }}/index.html
 
+      - name: "Replace configuration file"
+        env:
+          frontend_appsettings: ${{ secrets.FRONTEND_APPSETTINGS }}
+        run: echo ${{ env.frontend_appsettings }} >| ${{ env.PUBLISH_DIR }}/wwwroot/appsettings.json
+
       # Add .nojekyll file to tell github pages not to treat it
       # as a jekyll site. Which allows files and directories with
       # underscore in them.
       - name: "Add .nojekyll file"
         run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
-        
+
       # Prevent step from running if there is an outage
       - name: Check GitHub Pages status
         uses: crazy-max/ghaction-github-status@v3
