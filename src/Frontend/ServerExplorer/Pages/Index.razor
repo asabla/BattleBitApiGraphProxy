@@ -18,8 +18,7 @@
                     Variant="Variant.Outlined"
                     MultiSelection="true"
                     Clearable="true"
-                    @bind-Value="_gameModeValue"
-                    @bind-SelectedValues="_gameModeOptions">
+                    SelectedValuesChanged="OnGameModeChanged">
             @foreach (var mode in _gameModeList)
             {
                 <MudSelectItem T="string" Value="@mode">
@@ -35,8 +34,7 @@
                     Variant="Variant.Outlined"
                     MultiSelection="true"
                     Clearable="true"
-                    @bind-Value="_regionValue"
-                    @bind-SelectedValues="_regionOptions">
+                    SelectedValuesChanged="OnRegionChanged">
             @foreach (var region in _regionList)
             {
                 <MudSelectItem T="string" Value="region">
@@ -161,4 +159,16 @@
     private string _regionValue { get; set; } = "Nothing selected";
     private IEnumerable<string> _regionOptions { get; set; } = new HashSet<string>();
     private string[] _regionList => GetRegionList();
+
+    private void OnGameModeChanged(IEnumerable<string> gameModes)
+    {
+        _gameModes = Enum.GetValues<GameModeType>()
+            .Where(x => gameModes.Contains(x.ToString()) is false);
+    }
+
+    private void OnRegionChanged(IEnumerable<string> regions)
+    {
+        _regionTypes = Enum.GetValues<RegionType>()
+            .Where(x => regions.Contains(x.ToString()) is false);
+    }
 }
