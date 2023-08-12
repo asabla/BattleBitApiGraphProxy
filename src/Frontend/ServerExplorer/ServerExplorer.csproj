@@ -6,11 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <!-- TODO: Re-enable persisted queries again
   <PropertyGroup>
     <GraphQLPersistedQueryOutput Condition="'$(Configuration)' == 'Release'">
       ../../Backend/BattleBitGraphQLApi/persisted-queries
     </GraphQLPersistedQueryOutput>
   </PropertyGroup>
+  -->
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.7" />
