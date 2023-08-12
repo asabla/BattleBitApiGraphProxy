@@ -47,6 +47,7 @@
     @* Server list *@
     <MudItem xs="12">
         <UseGetServers Context="result"
+                        Strategy="ExecutionStrategy.CacheAndNetwork"
                         ServerName="@_serverName"
                         Regions="@_regionTypes.ToArray()"
                         GameModes="@_gameModes.ToArray()"

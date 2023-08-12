@@ -16,6 +16,9 @@
 # Mono auto generated files
 mono_crash.*
 
+# Ignore persisted queries directory
+persisted-queries/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

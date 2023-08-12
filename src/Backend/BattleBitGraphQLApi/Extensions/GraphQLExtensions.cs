@@ -29,6 +29,9 @@ internal static class GraphQLExtensions
                     IncludeTotalCount = true,
                 })
                 .UseAutomaticPersistedQueryPipeline()
+                .AddReadOnlyFileSystemQueryStorage("./persisted_queries")
+                .ModifyRequestOptions(opt =>
+                    opt.OnlyAllowPersistedQueries = builder.Environment.IsProduction())
             .AddInMemoryQueryStorage()
             .AddGraphQLTypes()
             .AddFiltering<CustomStringConventions>()
