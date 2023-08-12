@@ -1,5 +1,8 @@
+using BattleBitProxy.Backend.BattleBitGraphQLApi.GraphQL.Filters;
 using BattleBitProxy.Backend.BattleBitGraphQLApi.Services;
 
+using HotChocolate.Data.Filters;
+using HotChocolate.Data.Filters.Expressions;
 using HotChocolate.Types.Pagination;
 
 namespace BattleBitProxy.Backend.BattleBitGraphQLApi.Extensions;
@@ -28,7 +31,12 @@ internal static class GraphQLExtensions
                 .UseAutomaticPersistedQueryPipeline()
             .AddInMemoryQueryStorage()
             .AddGraphQLTypes()
-            .AddFiltering()
+            .AddFiltering<CustomStringConventions>()
+                .AddConvention<IFilterConvention>(new FilterConventionExtension(
+                    x => x.AddProviderExtension(new QueryableFilterProviderExtension(
+                        p => p.AddFieldHandler<QueryableStringInvariantContainsHandler>()
+                    ))
+                ))
             .AddProjections()
             .AddSorting()
             .RegisterService<BattleBitAPIService>(ServiceKind.Resolver);
