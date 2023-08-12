@@ -68,7 +68,7 @@ jobs:
 
       - name: "Replace configuration file"
         env:
-          frontend_appsettings: ${{ secrets.FRONTEND_APPSETTINGS }}
+          frontend_appsettings: ${{ env.FRONTEND_APPSETTINGS }}
         run: echo ${{ env.frontend_appsettings }} >| ${{ env.PUBLISH_DIR }}/wwwroot/appsettings.json
 
       # Add .nojekyll file to tell github pages not to treat it
