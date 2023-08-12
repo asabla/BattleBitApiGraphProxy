@@ -1,4 +1,5 @@
 using BattleBitProxy.Backend.BattleBitGraphQLApi.Extensions;
+using BattleBitProxy.Backend.BattleBitGraphQLApi.Models.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,13 +8,15 @@ builder
     .ConfigureServices()
     .ConfigureGraphQLServer();
 
+var settings = builder.Configuration.Get<ApiSettings>() ?? null!;
+
 var app = builder.Build();
 
 // app.UseHttpsRedirection();
 
 // TODO: make configuration of this prettier
 app.UseCors(options => options
-        .WithOrigins("https://localhost:7024")
+        .WithOrigins(settings.Backend.FrontendUrls.ToArray())
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials());
