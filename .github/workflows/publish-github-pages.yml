@@ -38,6 +38,7 @@ jobs:
       PROJECT: "src/Frontend/ServerExplorer/ServerExplorer.csproj"
       BUILD_ARCH: "Any CPU"
       BUILD_CONFIG: "Release"
+      APPSETTINGS: ${{ vars.FRONTEND_APPSETTINGS }}
 
     steps:
       - uses: actions/checkout@v3
@@ -67,7 +68,7 @@ jobs:
           html_path: ${{ env.PUBLISH_DIR }}/index.html
 
       - name: "Replace configuration file"
-        run: echo ${{ vars.frontend_appsettings }} >| ${{ env.PUBLISH_DIR }}/appsettings.json
+        run: echo ${{ env.APPSETTINGS }} >| ${{ env.PUBLISH_DIR }}/appsettings.json
 
       # Add .nojekyll file to tell github pages not to treat it
       # as a jekyll site. Which allows files and directories with
