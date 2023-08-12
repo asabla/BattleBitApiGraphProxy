@@ -15,6 +15,9 @@ public enum MapSizeType
     [GraphQLDescription("64 players")]
     Medium,
 
-    [GraphQLDescription("32 players (smallest supported)")]
-    Small
+    [GraphQLDescription("32 players")]
+    Small,
+
+    [GraphQLDescription("Smallest supported mode")]
+    Tiny
 }
