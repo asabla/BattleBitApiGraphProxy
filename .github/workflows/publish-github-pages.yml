@@ -67,9 +67,7 @@ jobs:
           html_path: ${{ env.PUBLISH_DIR }}/index.html
 
       - name: "Replace configuration file"
-        env:
-          frontend_appsettings: ${{ env.FRONTEND_APPSETTINGS }}
-        run: echo ${{ env.frontend_appsettings }} >| ${{ env.PUBLISH_DIR }}/appsettings.json
+        run: echo ${{ vars.frontend_appsettings }} >| ${{ env.PUBLISH_DIR }}/appsettings.json
 
       # Add .nojekyll file to tell github pages not to treat it
       # as a jekyll site. Which allows files and directories with
