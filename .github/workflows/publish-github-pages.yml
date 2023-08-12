@@ -47,7 +47,6 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 7.0.x
-          include_prerelease: true
 
       - name: "Restore project"
         run: dotnet restore ${{ env.PROJECT }}
@@ -68,7 +67,7 @@ jobs:
           html_path: ${{ env.PUBLISH_DIR }}/index.html
 
       - name: "Replace configuration file"
-        run: echo ${{ env.APPSETTINGS }} >| ${{ env.PUBLISH_DIR }}/appsettings.json
+        run: echo '${{ env.APPSETTINGS }}' >| ${{ env.PUBLISH_DIR }}/appsettings.json
 
       # Add .nojekyll file to tell github pages not to treat it
       # as a jekyll site. Which allows files and directories with
