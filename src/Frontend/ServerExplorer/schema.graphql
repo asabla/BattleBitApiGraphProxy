@@ -372,8 +372,10 @@ enum MapSizeType {
   BIG
   "64 players"
   MEDIUM
-  "32 players (smallest supported)"
+  "32 players"
   SMALL
+  "Smallest supported mode"
+  TINY
 }
 
 "Supported hosting regions"
