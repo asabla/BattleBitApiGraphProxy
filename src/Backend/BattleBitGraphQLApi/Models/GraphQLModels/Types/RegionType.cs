@@ -9,6 +9,9 @@ public enum RegionType
     [GraphQLDescription("Central America")]
     America_Central,
 
+    [GraphQLDescription("Central Asia")]
+    Asia_Central,
+
     [GraphQLDescription("Central Australia")]
     Australia_Central,
 
