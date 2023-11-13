@@ -30,6 +30,9 @@ public enum MapType
     [GraphQLDescription(nameof(MapType.Isle))]
     Isle,
 
+    [GraphQLDescription(nameof(MapType.Kodiak))]
+    Kodiak,
+
     [GraphQLDescription(nameof(MapType.Lonovo))]
     Lonovo,
 
@@ -41,6 +44,18 @@ public enum MapType
 
     [GraphQLDescription(nameof(MapType.OilDunes))]
     OilDunes,
+
+    [GraphQLDescription(nameof(MapType.Old_District))]
+    Old_District,
+
+    [GraphQLDescription(nameof(MapType.Old_Eduardovo))]
+    Old_Eduardovo,
+
+    [GraphQLDescription(nameof(MapType.Old_Namak))]
+    Old_Namak,
+
+    [GraphQLDescription(nameof(MapType.Old_OilDunes))]
+    Old_OilDunes,
 
     [GraphQLDescription(nameof(MapType.Range))]
     Range,
@@ -60,9 +75,15 @@ public enum MapType
     [GraphQLDescription(nameof(MapType.Valley))]
     Valley,
 
+    [GraphQLDescription(nameof(MapType.VoxelLand))]
+    VoxelLand,
+
     [GraphQLDescription(nameof(MapType.Wakistan))]
     Wakistan,
 
     [GraphQLDescription(nameof(MapType.WineParadise))]
-    WineParadise
+    WineParadise,
+
+    [GraphQLDescription(nameof(MapType.ZalfiBay))]
+    ZalfiBay
 }

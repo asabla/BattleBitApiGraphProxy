@@ -34,5 +34,8 @@ public enum GameModeType
     TDM,
 
     [GraphQLDescription("Voxel fortify")]
-    VoxelFortify
+    VoxelFortify,
+
+    [GraphQLDescription("Voxel trench")]
+    VoxelTrench,
 }
