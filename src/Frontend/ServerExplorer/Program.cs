@@ -1,10 +1,11 @@
+using BattleBitProxy.ServerExplorer;
+
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
-using ServerExplorer;
-
 using MudBlazor.Services;
-using BattleBitProxy.ServerExplorer;
+
+using ServerExplorer;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
