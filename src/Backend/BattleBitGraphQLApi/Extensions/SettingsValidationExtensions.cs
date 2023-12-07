@@ -51,7 +51,7 @@ internal class FluentValidationOptions<TOptions> : IValidateOptions<TOptions>
         var typeName = options.GetType().Name;
         var errors = new List<string>();
 
-        foreach (var result in results .Errors)
+        foreach (var result in results.Errors)
         {
             errors.Add($"Validation error: '{typeName}.{result.PropertyName}' "
                 + $"with errors: '{result.ErrorCode}'");
