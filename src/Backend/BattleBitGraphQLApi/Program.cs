@@ -15,7 +15,7 @@ var app = builder.Build();
 // app.UseHttpsRedirection();
 
 // TODO: make configuration of this prettier
-app.UseCors(options 
+app.UseCors(options
         => options.WithOrigins(settings.Backend.FrontendUrls.ToArray())
     .AllowAnyHeader()
     .AllowAnyMethod()
