@@ -18,6 +18,9 @@ public enum GameModeType
     [GraphQLDescription("Elimination")]
     ELI,
 
+    [GraphQLDescription("Free for all")]
+    FFA,
+
     [GraphQLDescription("Frontline")]
     FRONTLINE,
 
