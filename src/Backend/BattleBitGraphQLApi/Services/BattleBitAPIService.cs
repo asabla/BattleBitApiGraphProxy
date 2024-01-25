@@ -75,4 +75,192 @@ public class BattleBitAPIService
                         RegionTypeString = x.Region
                     }
                 }).ToList()) ?? null!;
+
+    public async Task<IReadOnlyList<StatisticsObject>> GetMostXPAsync(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.MostXP.ToList());
+
+    public async Task<IReadOnlyList<StatisticsObject>> GetMostHealsAsync(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.MostHeals.ToList());
+
+    public async Task<IReadOnlyList<StatisticsObject>> GetMostRevivesAsync(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.MostRevives.ToList());
+
+    public async Task<IReadOnlyList<StatisticsObject>> GetMostVehiclesDestroyedAsync(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.MostVehiclesDestroyed.ToList());
+
+    public async Task<IReadOnlyList<StatisticsObject>> GetMostVehicleRepairsAsync(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.MostVehicleRepairs.ToList());
+
+    public async Task<IReadOnlyList<StatisticsObject>> GetMostRoadKillsAsync(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.MostRoadKills.ToList());
+
+    public async Task<IReadOnlyList<StatisticsObject>> GetMostLongestKillAsync(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.MostLongestKill.ToList());
+
+    public async Task<IReadOnlyList<StatisticsObject>> GetMostObjectivesCompletedAsync(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.MostObjectivesComplete.ToList());
+
+    public async Task<IReadOnlyList<StatisticsObject>> GetMostKillsAsync(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.MostKills.ToList());
+
+    public async Task<IReadOnlyList<TopClanObject>> GetTopClans(
+        CancellationToken cancellationToken = default)
+        => await GetLeaderboardAsync(cancellationToken)
+            .ContinueWith(taskResult => taskResult.Result.TopClans.ToList());
+
+    private async Task<LeaderBoardInfo> GetLeaderboardAsync(
+        CancellationToken cancellationToken = default)
+        => await _memoryCache.GetOrCreateAsync(
+            key: nameof(LeaderBoardInfo),
+            factory: async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2);
+
+                _logger.LogInformation("Fetching BattleBit leaderboard");
+
+                var httpClient = _httpClientFactory.CreateClient(HttpClientName.BattleBitAPI);
+
+                var result = await httpClient.GetFromJsonAsync<IReadOnlyList<BattleBitAPILeaderBoardInfo>>(
+                        requestUri: "Leaderboard/Get",
+                        options: new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        },
+                        cancellationToken: cancellationToken)
+                    ?? null!;
+
+                return new LeaderBoardInfo
+                {
+                    TopClans = result
+                        .SelectMany(e => e.TopClans)
+                        .Select((e, i) => new TopClanObject
+                        {
+                            Clan = e.Clan,
+                            Tag = e.Tag,
+                            XP = int.TryParse(e.XP, out var xp) ? xp : 0,
+                            MaxPlayers = int.TryParse(e.MaxPlayers, out var maxPlayers) ? maxPlayers : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.XP)
+                        .ToList(),
+
+                    MostXP = result
+                        .SelectMany(e => e.MostXP)
+                        .Select((e, i) => new StatisticsObject
+                        {
+                            PlayerName = e.Name,
+                            Value = int.TryParse(e.Value, out var val) ? val : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.Value)
+                        .ToList(),
+
+                    MostHeals = result
+                        .SelectMany(e => e.MostHeals)
+                        .Select((e, i) => new StatisticsObject
+                        {
+                            PlayerName = e.Name,
+                            Value = int.TryParse(e.Value, out var val) ? val : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.Value)
+                        .ToList(),
+
+                    MostRevives = result
+                        .SelectMany(e => e.MostRevives)
+                        .Select((e, i) => new StatisticsObject
+                        {
+                            PlayerName = e.Name,
+                            Value = int.TryParse(e.Value, out var val) ? val : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.Value)
+                        .ToList(),
+
+                    MostVehiclesDestroyed = result
+                        .SelectMany(e => e.MostVehiclesDestroyed)
+                        .Select((e, i) => new StatisticsObject
+                        {
+                            PlayerName = e.Name,
+                            Value = int.TryParse(e.Value, out var val) ? val : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.Value)
+                        .ToList(),
+
+                    MostVehicleRepairs = result
+                        .SelectMany(e => e.MostVehicleRepairs)
+                        .Select((e, i) => new StatisticsObject
+                        {
+                            PlayerName = e.Name,
+                            Value = int.TryParse(e.Value, out var val) ? val : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.Value)
+                        .ToList(),
+
+                    MostRoadKills = result
+                        .SelectMany(e => e.MostRoadKills)
+                        .Select((e, i) => new StatisticsObject
+                        {
+                            PlayerName = e.Name,
+                            Value = int.TryParse(e.Value, out var val) ? val : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.Value)
+                        .ToList(),
+
+                    MostLongestKill = result
+                        .SelectMany(e => e.MostLongestKill)
+                        .Select((e, i) => new StatisticsObject
+                        {
+                            PlayerName = e.Name,
+                            Value = int.TryParse(e.Value, out var val) ? val : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.Value)
+                        .ToList(),
+
+                    MostObjectivesComplete = result
+                        .SelectMany(e => e.MostObjectivesComplete)
+                        .Select((e, i) => new StatisticsObject
+                        {
+                            PlayerName = e.Name,
+                            Value = int.TryParse(e.Value, out var val) ? val : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.Value)
+                        .ToList(),
+
+                    MostKills = result
+                        .SelectMany(e => e.MostKills)
+                        .Select((e, i) => new StatisticsObject
+                        {
+                            PlayerName = e.Name,
+                            Value = int.TryParse(e.Value, out var val) ? val : 0,
+                            Position = i + 1
+                        })
+                        .OrderByDescending(e => e.Value)
+                        .ToList(),
+                };
+            })
+            .ContinueWith(taskResult => taskResult.Result ?? null!);
 }
