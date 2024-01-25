@@ -51,11 +51,17 @@ public enum MapType
     [GraphQLDescription(nameof(MapType.Old_Eduardovo))]
     Old_Eduardovo,
 
+    [GraphQLDescription(nameof(MapType.Old_MultuIslands))]
+    Old_MultuIslands,
+
     [GraphQLDescription(nameof(MapType.Old_Namak))]
     Old_Namak,
 
     [GraphQLDescription(nameof(MapType.Old_OilDunes))]
     Old_OilDunes,
+
+    [GraphQLDescription(nameof(MapType.Outskirts))]
+    Outskirts,
 
     [GraphQLDescription(nameof(MapType.Range))]
     Range,
