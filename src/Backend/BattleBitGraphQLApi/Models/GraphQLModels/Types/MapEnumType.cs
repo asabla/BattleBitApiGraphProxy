@@ -24,6 +24,9 @@ public enum MapType
     [GraphQLDescription(nameof(MapType.Eduardovo))]
     Eduardovo,
 
+    [GraphQLDescription(nameof(MapType.EventMap))]
+    EventMap,
+
     [GraphQLDescription(nameof(MapType.Frugis))]
     Frugis,
 
