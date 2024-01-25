@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0.400 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS restore
 WORKDIR /src
 
 # Restore nuget packages in order to allow them being cached
@@ -6,11 +6,20 @@ WORKDIR /src
 COPY ["BattleBitGraphQLApi.csproj", "./"]
 RUN dotnet restore "BattleBitGraphQLApi.csproj"
 
+FROM restore AS build
+WORKDIR /src
+
+COPY --from=restore /src .
+
 # Copy rest of the files needed for building backend
-COPY [".", "./"]
+COPY . .
+
 RUN dotnet build "BattleBitGraphQLApi.csproj" -c Release -o /app
 
 FROM build AS publish
+WORKDIR /src
+
+COPY --from=build /src .
 
 RUN dotnet publish \
     -r linux-x64 \
@@ -21,7 +30,7 @@ RUN dotnet publish \
     -c Release \
     -o /app
 
-FROM mcr.microsoft.com/dotnet/runtime:7.0.10 AS final
+FROM mcr.microsoft.com/dotnet/runtime:8.0 AS final
 WORKDIR /app
 
 COPY --from=publish /app .
