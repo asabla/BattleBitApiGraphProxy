@@ -11,13 +11,14 @@ internal static class ConfigurationExtensions
     {
         builder.Configuration
             .AddJsonFile("appsettings.json",
-                optional: true,
-                reloadOnChange: true)
+                    optional: true,
+                    reloadOnChange: true)
             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json",
-                optional: true,
-                reloadOnChange: true);
+                    optional: true,
+                    reloadOnChange: true)
+            .AddEnvironmentVariables();
 
-        // Fluent validation of configuration file
+        // Fluent validation of configuration file or environment variables
         builder.Services.AddScoped<IValidator<ApiSettings>, ApiSettingsValidator>();
         builder.Services.AddOptions<ApiSettings>()
             .BindConfiguration(nameof(ApiSettings))
