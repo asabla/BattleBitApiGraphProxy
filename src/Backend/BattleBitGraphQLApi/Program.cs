@@ -14,13 +14,6 @@ var app = builder.Build();
 
 // app.UseHttpsRedirection();
 
-// TODO: make configuration of this prettier
-app.UseCors(options
-        => options.WithOrigins(settings.Backend.FrontendUrls.ToArray())
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials());
-
 app.MapGraphQL();
 
 // Can be used for health check (just return 200 OK)
