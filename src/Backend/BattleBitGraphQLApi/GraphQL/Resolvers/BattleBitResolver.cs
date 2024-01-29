@@ -20,6 +20,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches all top clans from public API")]
     public Task<IReadOnlyList<TopClanObject>> GetTopClans(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)
@@ -29,6 +30,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches players with most XP from public API")]
     public Task<IReadOnlyList<StatisticsObject>> GetMostXP(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)
@@ -38,6 +40,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches players with most heals from public API")]
     public Task<IReadOnlyList<StatisticsObject>> GetMostHeals(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)
@@ -47,6 +50,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches players with most kills from public API")]
     public Task<IReadOnlyList<StatisticsObject>> GetMostKills(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)
@@ -56,6 +60,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches players with most revives from public API")]
     public Task<IReadOnlyList<StatisticsObject>> GetMostRevives(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)
@@ -65,6 +70,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches players with most road kills from public API")]
     public Task<IReadOnlyList<StatisticsObject>> GetMostRoadKills(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)
@@ -74,6 +80,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches players with the longest kills from public API")]
     public Task<IReadOnlyList<StatisticsObject>> GetMostLongestKills(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)
@@ -83,6 +90,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches players with most vehicle repairs from public API")]
     public Task<IReadOnlyList<StatisticsObject>> GetMostVehicleRepairs(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)
@@ -92,6 +100,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches players with most destroyed vehicle from public API")]
     public Task<IReadOnlyList<StatisticsObject>> GetMostVehiclesDestroyed(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)
@@ -101,6 +110,7 @@ public sealed class BattleBitResolvers
     [UseProjection]
     [UseFiltering]
     [UseSorting]
+    [GraphQLDescription("Fetches players with most objectives completed from public API")]
     public Task<IReadOnlyList<StatisticsObject>> GetMostObjectivesCompleted(
             BattleBitAPIService bService,
             CancellationToken cancellationToken)

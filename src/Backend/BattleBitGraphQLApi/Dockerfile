@@ -23,7 +23,7 @@ COPY --from=build /src .
 
 RUN dotnet publish \
     -r linux-x64 \
-    -p:PublishTrimmed=true \
+    # -p:PublishTrimmed=true \
     -p:PublishSingleFile=true \
     -p:PublishReadyToRun=true \
     --self-contained "BattleBitGraphQLApi.csproj" \
