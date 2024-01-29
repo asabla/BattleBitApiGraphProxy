@@ -15,7 +15,8 @@ internal static class GraphQLExtensions
         builder.Services
             .AddMemoryCache()       // Used by persisted queries pipeline
             .AddGraphQLServer()
-                .AllowIntrospection(builder.Environment.IsDevelopment())
+                // Re-enable if/when there is a frontend project again
+                // .AllowIntrospection(builder.Environment.IsDevelopment())
                 .InitializeOnStartup()
                 .ModifyRequestOptions(opt =>
                 {
@@ -29,9 +30,10 @@ internal static class GraphQLExtensions
                     IncludeTotalCount = true,
                 })
                 .UseAutomaticPersistedQueryPipeline()
-                .AddReadOnlyFileSystemQueryStorage("./persisted_queries")
-                .ModifyRequestOptions(opt =>
-                    opt.OnlyAllowPersistedQueries = builder.Environment.IsProduction())
+                // Remnant from frontend project, still relevant
+                // .AddReadOnlyFileSystemQueryStorage("./persisted_queries")
+                // .ModifyRequestOptions(opt =>
+                //     opt.OnlyAllowPersistedQueries = builder.Environment.IsProduction())
             .AddInMemoryQueryStorage()
             .AddGraphQLTypes()
             .AddFiltering<CustomStringConventions>()
