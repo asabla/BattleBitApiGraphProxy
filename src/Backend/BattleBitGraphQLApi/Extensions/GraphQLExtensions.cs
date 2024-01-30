@@ -44,7 +44,17 @@ internal static class GraphQLExtensions
                 ))
             .AddProjections()
             .AddSorting()
-            .RegisterService<BattleBitAPIService>(ServiceKind.Resolver);
+            .RegisterService<BattleBitAPIService>(ServiceKind.Resolver)
+            .UseInstrumentation()
+            .UseExceptions()
+            .UseDocumentCache()
+            .UseDocumentParser()
+            .UseDocumentValidation()
+            .UseOperationCache()
+            .UseOperationComplexityAnalyzer()
+            .UseOperationResolver()
+            .UseOperationVariableCoercion()
+            .UseOperationExecution();
 
         return builder;
     }
