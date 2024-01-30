@@ -35,7 +35,7 @@ public class LeaderBoardInfo
 
 public class TopClanObject
 {
-    public string Clan { get; set; } = null!;
+    public string ClanName { get; set; } = null!;
     public string Tag { get; set; } = null!;
     public int XP { get; set; }
     public int MaxPlayers { get; set; }

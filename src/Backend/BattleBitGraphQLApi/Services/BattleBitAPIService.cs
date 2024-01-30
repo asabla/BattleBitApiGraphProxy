@@ -151,15 +151,16 @@ public class BattleBitAPIService
                 {
                     TopClans = result
                         .SelectMany(e => e.TopClans)
+                        .OrderByDescending(e => int.TryParse(e.XP, out var xp) ? xp : 0)
                         .Select((e, i) => new TopClanObject
                         {
-                            Clan = e.Clan,
+                            ClanName = e.Clan,
                             Tag = e.Tag,
                             XP = int.TryParse(e.XP, out var xp) ? xp : 0,
                             MaxPlayers = int.TryParse(e.MaxPlayers, out var maxPlayers) ? maxPlayers : 0,
                             Position = i + 1
                         })
-                        .OrderByDescending(e => e.XP)
+                        .OrderBy(e => e.Position)
                         .ToList(),
 
                     MostXP = result
