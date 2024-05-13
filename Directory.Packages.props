@@ -7,7 +7,7 @@
     <PackageVersion Include="HotChocolate" Version="13.9.0" />
     <PackageVersion Include="HotChocolate.AspNetCore" Version="13.9.0" />
     <PackageVersion Include="HotChocolate.AspNetCore.CommandLine" Version="13.9.0" />
-    <PackageVersion Include="HotChocolate.Data" Version="13.9.0" />
+    <PackageVersion Include="HotChocolate.Data" Version="13.9.4" />
     <PackageVersion Include="HotChocolate.PersistedQueries.FileSystem" Version="13.9.0" />
     <PackageVersion Include="HotChocolate.PersistedQueries.InMemory" Version="13.9.0" />
     <PackageVersion Include="HotChocolate.Types.Analyzers" Version="13.9.0" />
