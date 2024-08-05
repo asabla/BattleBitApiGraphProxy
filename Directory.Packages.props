@@ -10,7 +10,7 @@
     <PackageVersion Include="HotChocolate.Data" Version="13.9.7" />
     <PackageVersion Include="HotChocolate.PersistedQueries.FileSystem" Version="13.9.7" />
     <PackageVersion Include="HotChocolate.PersistedQueries.InMemory" Version="13.9.7" />
-    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="13.9.9" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Options" Version="8.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
